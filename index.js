@@ -4,14 +4,11 @@ import bodyParser from "body-parser";
 import pg from "pg";
 
 const app = express();
-const PORT = 3100;
+const PORT = process.env.PORT || 3100;
 
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "cmddb",
-  password: "123456",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL || "postgresql://postgres:123456@localhost:5432/cmddb",
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
 db.connect();
@@ -144,4 +141,6 @@ app.post("/remove-from-cart", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
