@@ -1,3 +1,8 @@
+## Live Demo
+🎄🍸 I built a Random Cocktail App!
+One click, one drink — add to cart and explore recipes.
+https://random-cocktail-app-1.onrender.com
+
 # Random Cocktail App 🍸
 
 A simple Node.js + Express web app that fetches random cocktail recipes
