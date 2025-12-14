@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<div class="container">
+  <h2>Christmas Cocktails, One Click Away 🎄</h2>
+
+  <% if (!drink) { %>
+    <p>No cocktail found.</p>
+  <% } else { %>
+    <h3><%= drink.strDrink %></h3>
+    <img src="<%= drink.strDrinkThumb %>" alt="cocktail">
+
+  <% } %>
+    <div class="cocktail-info">
+      <h1 class="cocktail-title"><%= drink.strDrink %></h1>
+
+      <div class="meta-row">
+        <% if (drink.strCategory) { %>
+          <span class="chip">Category: <strong><%= drink.strCategory %></strong></span>
+        <% } %>
+        <% if (drink.strAlcoholic) { %>
+          <span class="chip">Type: <%= drink.strAlcoholic %></span>
+        <% } %>
+        <% if (drink.strGlass) { %>
+          <span class="chip">Glass: <%= drink.strGlass %></span>
+        <% } %>
+      </div>
+
+      <h3>Ingredients</h3>
+      <ul class="ingredients">
+        <% for (let i = 1; i <= 15; i++) {
+             const ing = drink["strIngredient" + i];
+             const measure = drink["strMeasure" + i];
+             if (ing) { %>
+               <li><span class="ingredient-name"><%= ing %></span>
+                 <span class="ingredient-measure"><%= measure ? (" — " + measure.trim()) : "" %></span>
+               </li>
+        <% }} %>
+      </ul>
+
+      <h3>Instructions</h3>
+      <p class="instructions"><%= drink.strInstructions %></p>
+
+      <div class="actions">
+        <button class="btn add-to-cart-btn" 
+                data-drink-id="<%= drink.idDrink %>"
+                data-drink-name="<%= drink.strDrink %>"
+                data-drink-image="<%= drink.strDrinkThumb %>"
+                data-drink-ingredients="<%= drink.ingredientList %>">
+          Add to Cart
+        </button>
+        <a href="/" class="btn subtle">Click me!</a>
+      </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

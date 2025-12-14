@@ -1,0 +1,42 @@
+<%- include("partials/header") %>
+
+<main class="page-content">
+  <!-- cart.ejs content here -->
+
+<% if (cartItems.length === 0) { %>
+  <p class="empty-cart">Your cart is empty.</p>
+<% } else { %>
+  <div class="cart-container">
+    <% cartItems.forEach(item => { %>
+      <div class="cart-item">
+
+        <img src="<%= item.image %>" alt="<%= item.name %>">
+
+        <div class="cart-details">
+          <h3><%= item.name %></h3>
+
+          <ul>
+            <% item.ingredients
+                .split(',')
+                .map(i => i.trim())
+                .filter(i => i)
+                .forEach(ingredient => { %>
+              <li><%= ingredient %></li>
+            <% }) %>
+          </ul>
+
+          <!-- REMOVE BUTTON -->
+          <form action="/remove-from-cart" method="POST">
+            <input type="hidden" name="id" value="<%= item.id %>">
+            <button class="btn danger">Remove</button>
+          </form>
+
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+</main>
+
+
+<%- include("partials/footer") %>
